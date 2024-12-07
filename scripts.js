@@ -1,66 +1,84 @@
-const list = document.querySelector("ul")
-const buttonShowAll = document.querySelector(".Show-All")
-const buttonMapAll = document.querySelector(".Map-All")
-const buttonSumAll = document.querySelector(".Sum-All")
-const buttonFilterAll = document.querySelector(".Filter-All")
+// Produtos com nome, imagem e preço
+const products = [
+  {
+    name: "X-Bacon Egg",
+    image: "image/bacon-egg.png",
+    price: 18.0,
+  },
+  {
+    name: "X-Salada",
+    image: "image/xsalada.jpeg",
+    price: 15.0,
+  },
+  {
+    name: "X-Tudo",
+    image: "image/monstruoso.png",
+    price: 20.0,
+  },
+  {
+    name: "Vegano",
+    image: "image/xvegan.png",
+    price: 18.0,
+  },
+  {
+    name: "Frango",
+    image: "image/monstruoso-vegan.png",
+    price: 17.0,
+  },
+  {
+    name: "Cheddar Bacon",
+    image: "image/xbacon.png",
+    price: 19.0,
+  },
+];
 
-function formatCurrency(value) {
-  const newValue = value.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-})
+// Função para mostrar todos os itens
+function displayProducts(products) {
+  const ul = document.querySelector("ul");
+  ul.innerHTML = ""; // Limpa a lista existente
 
-return newValue
+  products.forEach((product) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <p>${product.name}</p>
+          <p class="item-price">R$ ${product.price.toFixed(2)}</p>
+      `;
+    ul.appendChild(li);
+  });
 }
 
+// Função para mapear os itens e aplicar um aumento no preço
+function mapAll() {
+  const mappedProducts = products.map((product) => {
+    return {
+      ...product,
+      price: product.price * 1.1, // Aumenta 10% no preço
+    };
+  });
 
-function showAll(productArray) {
-  let myLi = ''
-
-  productArray.forEach((product) => {
-    myLi += `
-               <li>
-                    <img src=${product.src}>
-                    <p>${product.name}</p>
-                    <p class="item-price">R$ ${formatCurrency(product.price)}</p>
-              </li>
-            `
-
-  })
-  list.innerHTML = myLi
-
-
+  // Exibe os produtos com os preços mapeados
+  displayProducts(mappedProducts);
 }
 
-function mapAllItems() {
-  const newPrice = menuOptions.map((product) => ({
-    ...product,
-    price: product.price * 0.9, //dar 10% 
-  }))
-
-
-  showAll(newPrice)
+// Função para somar todos os preços
+function sumAll() {
+  const total = products.reduce((sum, product) => sum + product.price, 0);
+  alert(`Total: R$ ${total.toFixed(2)}`);
 }
 
-function sumAllItems() {
-  const totalValue = menuOptions.reduce((acc, curr) => acc + curr.price, 0)
-
-  list.innerHTML = `
-                         <li>
-                           <p>Ó valor total dos itens são R$ ${totalValue} </p>
-                        </li>
-                  `
-
-
+// Função para filtrar produtos que contêm 'X' no nome
+function filterAll() {
+  const filteredProducts = products.filter((product) =>
+    product.name.includes("X")
+  );
+  displayProducts(filteredProducts);
 }
 
-function filterAllItems() {
-  const filterJustVegans = menuOptions.filter((product) => product.vegan === true)
+// Adiciona eventos aos botões
+document.querySelector(".Map-All").addEventListener("click", mapAll);
+document.querySelector(".Sum-All").addEventListener("click", sumAll);
+document.querySelector(".Filter-All").addEventListener("click", filterAll);
 
-  showAll(filterJustVegans)
-}
-
-buttonShowAll.addEventListener("click", () => showAll(menuOptions))
-buttonMapAll.addEventListener("click", mapAllItems)
-buttonSumAll.addEventListener("click", sumAllItems)
-buttonFilterAll.addEventListener("click", filterAllItems)
+// Exibe todos os produtos ao carregar a página
+window.onload = () => displayProducts(products);

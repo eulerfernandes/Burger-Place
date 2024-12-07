@@ -5,56 +5,116 @@
 }
 
 body {
-    background-color: black;
+    background-color: #121212;
+    font-family: 'Roboto', sans-serif;
+    color: #f0f0f0;
+    padding: 20px;
+    line-height: 1.6;
 }
 
 .conteiner-buttons {
-    margin:30px 0;
+    margin: 40px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
 }
 
 button {
-   background-color: #79bc15;
-   border: none;
-   border-radius: 5px;
-   color: black;
-   padding: 10px;
-   cursor: pointer;
-   font-weight: bold;
-   width: 110px;
-
+    background-color: #4caf50;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button:hover {
-  opacity: 0.8;
+    opacity: 0.85;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 ul {
     list-style: none;
     display: grid;
-    grid-template-columns: 200px 200px 200px;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-li{
-    border: 2px solid #8133ff;
-    border-radius: 5px;
-    padding: 5px;
-
+li {
+    border: 2px solid #ffcc00;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #2c2c2c;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
 }
+
+li:hover {
+    background-color: #444;
+    transform: translateY(-5px);
+}
+
 img {
     width: 100%;
-    border-radius: 5px;
+    height: auto;
+    max-width: 150px;
+    /* Ajusta a largura máxima */
+    max-height: 150px;
+    /* Ajusta a altura máxima */
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.05);
 }
 
 p {
-    color: white;
+    margin: 12px 0;
+    font-size: 1rem;
+    color: #e0e0e0;
 }
 
 .item-price {
     font-weight: bold;
-    color: #79bc15;
+    font-size: 1.2rem;
+    color: #ffcc00;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .conteiner-buttons {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    ul {
+        grid-template-columns: 1fr;
+    }
+
+    .conteiner-buttons {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
 }
